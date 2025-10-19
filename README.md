@@ -42,27 +42,27 @@ use manim_rs::renderer::{Path, PathStyle, Renderer};
 
 fn main() -> manim_rs::core::Result<()> {
     let mut renderer = SvgRenderer::new(800, 600);
-    
+
     // Create a circle using bezier curves
     let mut circle = Path::new();
     let r = 100.0;
     let k = 0.552; // Magic number for circle approximation
-    
+
     circle.move_to(Vector2D::new(r, 0.0))
         .cubic_to(Vector2D::new(r, r*k), Vector2D::new(r*k, r), Vector2D::new(0.0, r))
         .cubic_to(Vector2D::new(-r*k, r), Vector2D::new(-r, r*k), Vector2D::new(-r, 0.0))
         .cubic_to(Vector2D::new(-r, -r*k), Vector2D::new(-r*k, -r), Vector2D::new(0.0, -r))
         .cubic_to(Vector2D::new(r*k, -r), Vector2D::new(r, -r*k), Vector2D::new(r, 0.0))
         .close();
-    
+
     let style = PathStyle::stroke(Color::BLUE, 2.0)
         .with_fill(Color::from_hex("#87CEEB")?);
-    
+
     renderer.begin_frame()?;
     renderer.clear(Color::WHITE)?;
     renderer.draw_path(&circle, &style)?;
     renderer.end_frame()?;
-    
+
     renderer.save("output.svg")?;
     Ok(())
 }
@@ -146,6 +146,7 @@ cargo clippy --all-targets --all-features -- -D warnings
 ## 📊 Performance
 
 Comprehensive Criterion benchmarks track performance:
+
 - Vector operations (normalization, dot/cross products, interpolation)
 - Path operations (bounding box, transforms, cloning)
 - Small path optimization (16-command inline capacity via SmallVec)
