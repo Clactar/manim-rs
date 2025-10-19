@@ -89,6 +89,70 @@ impl Vector2D {
         self.x * self.x + self.y * self.y
     }
 
+    /// Returns the zero vector.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use manim_rs::core::Vector2D;
+    ///
+    /// let zero = Vector2D::zero();
+    /// assert_eq!(zero, Vector2D::ZERO);
+    /// ```
+    #[inline]
+    pub fn zero() -> Self {
+        Self::ZERO
+    }
+
+    /// Creates a vector with the same value in all components.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use manim_rs::core::Vector2D;
+    ///
+    /// let v = Vector2D::splat(2.5);
+    /// assert_eq!(v, Vector2D::new(2.5, 2.5));
+    /// ```
+    #[inline]
+    pub fn splat(value: f64) -> Self {
+        Self::new(value, value)
+    }
+
+    /// Returns a new vector with the minimum components of this vector and another.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use manim_rs::core::Vector2D;
+    ///
+    /// let v1 = Vector2D::new(1.0, 3.0);
+    /// let v2 = Vector2D::new(2.0, 2.0);
+    /// let min = v1.min_components(v2);
+    /// assert_eq!(min, Vector2D::new(1.0, 2.0));
+    /// ```
+    #[inline]
+    pub fn min_components(self, other: Self) -> Self {
+        Self::new(self.x.min(other.x), self.y.min(other.y))
+    }
+
+    /// Returns a new vector with the maximum components of this vector and another.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use manim_rs::core::Vector2D;
+    ///
+    /// let v1 = Vector2D::new(1.0, 3.0);
+    /// let v2 = Vector2D::new(2.0, 2.0);
+    /// let max = v1.max_components(v2);
+    /// assert_eq!(max, Vector2D::new(2.0, 3.0));
+    /// ```
+    #[inline]
+    pub fn max_components(self, other: Self) -> Self {
+        Self::new(self.x.max(other.x), self.y.max(other.y))
+    }
+
     /// Returns a normalized (unit length) version of the vector.
     ///
     /// Returns `None` if the vector has zero length.
@@ -216,6 +280,12 @@ impl std::ops::Neg for Vector2D {
     #[inline]
     fn neg(self) -> Self {
         Self::new(-self.x, -self.y)
+    }
+}
+
+impl std::fmt::Display for Vector2D {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "({}, {})", self.x, self.y)
     }
 }
 
