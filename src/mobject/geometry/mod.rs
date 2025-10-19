@@ -23,6 +23,8 @@
 //! ```
 
 mod circle;
+mod rectangle;
 
 pub use circle::{Circle, CircleBuilder};
+pub use rectangle::{Rectangle, RectangleBuilder, Square, SquareBuilder};
 
