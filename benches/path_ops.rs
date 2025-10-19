@@ -2,7 +2,7 @@
 //!
 //! Target: Path creation < 100ns for small shapes (stack-allocated via SmallVec).
 
-use criterion::{BenchmarkId, Criterion, black_box, criterion_group, criterion_main};
+use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion};
 use manim_rs::core::{Transform, Vector2D};
 use manim_rs::renderer::Path;
 
