@@ -18,11 +18,11 @@ This document outlines the implementation plan for manim-rs, organized by depend
 - [x] `Transform` - 2D transformation matrices
 - [x] Error handling system
 
-### 1.2 Extended Math Types (In Progress 🔄)
+### 1.2 Extended Math Types ✅
 
-- [ ] `BoundingBox` - Axis-aligned bounding boxes for spatial queries
-- [ ] `QuadraticBezier` / `CubicBezier` - Bézier curve utilities
-- [ ] Angle types (`Radians`, `Degrees`)
+- [x] `BoundingBox` - Axis-aligned bounding boxes for spatial queries
+- [x] `QuadraticBezier` / `CubicBezier` - Bézier curve utilities
+- [x] Angle types (`Radians`, `Degrees`)
 - [ ] `Vector3D` - 3D vectors for future 3D support (defer to Phase 7)
 - [ ] `Matrix` - General matrix operations (defer to Phase 7)
 - [ ] `Quaternion` - 3D rotations (defer to Phase 7)
@@ -431,8 +431,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for how to propose changes.
 
 ---
 
-**Last Updated**: 2025-10-19  
-**Current Phase**: Phase 1.1 (Completed) ✅ → Phase 1.2 (Next) 🔄
+**Last Updated**: 2025-10-19
+**Current Phase**: Phase 1.2 (Completed) ✅ → Phase 2.1 (Next) 🔄
 
 ---
 
