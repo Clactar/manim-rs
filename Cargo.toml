@@ -56,6 +56,11 @@ name = "geometry_showcase"
 path = "examples/intermediate/geometry_showcase.rs"
 required-features = ["svg"]
 
+[[example]]
+name = "raster_basic"
+path = "examples/raster_basic.rs"
+required-features = ["raster"]
+
 [[bench]]
 name = "vector_ops"
 harness = false
