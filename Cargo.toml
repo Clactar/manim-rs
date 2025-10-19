@@ -46,12 +46,31 @@ gpu = []
 parallel = []
 serde = ["dep:serde", "nalgebra/serde-serialize"]
 
+[[example]]
+name = "shapes"
+path = "examples/basic/shapes.rs"
+required-features = ["svg"]
+
+[[example]]
+name = "geometry_showcase"
+path = "examples/intermediate/geometry_showcase.rs"
+required-features = ["svg"]
+
+[[example]]
+name = "raster_basic"
+path = "examples/raster_basic.rs"
+required-features = ["raster"]
+
 [[bench]]
 name = "vector_ops"
 harness = false
 
 [[bench]]
 name = "path_ops"
+harness = false
+
+[[bench]]
+name = "mobject_ops"
 harness = false
 
 [profile.release]
