@@ -1,0 +1,35 @@
+# Rust
+/target/
+**/*.rs.bk
+*.pdb
+Cargo.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Output
+output/
+*.svg
+*.mp4
+*.webm
+*.png
+*.jpg
+
+# Benchmarks
+*.profdata
+flamegraph.svg
+perf.data
+perf.data.old
+
+# Documentation
+/doc/
+
+# Testing
+.coverage
+*.gcda
+*.gcno

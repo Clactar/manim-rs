@@ -1,0 +1,122 @@
+---
+globs: examples/*.rs
+description: "Standards for example code and demonstrations"
+---
+
+# Example Code Standards
+
+## Example Structure
+
+Each example should be:
+
+1. **Self-contained**: Runnable with `cargo run --example <name>`
+2. **Well-commented**: Explain what's being demonstrated
+3. **Progressive**: Start simple, build up complexity
+4. **Visual**: Produce visible output (image/video/animation)
+
+## Example Template
+
+```rust
+//! Basic circle animation example
+//!
+//! Demonstrates:
+//! - Creating a simple shape
+//! - Applying animations
+//! - Rendering to SVG
+
+use manim_rs::prelude::*;
+
+fn main() -> Result<()> {
+    // Create a new scene with default settings
+    let mut scene = Scene::new(SceneConfig::default());
+
+    // Create a circle at the origin
+    let circle = Circle::builder()
+        .center(Vector2D::ZERO)
+        .radius(2.0)
+        .color(Color::BLUE)
+        .build();
+
+    // Add the circle to the scene and animate it
+    scene
+        .add(circle)
+        .animate()
+        .fade_in(1.0)
+        .then()
+        .scale(2.0, 2.0)
+        .with_ease(ease::smooth_in_out);
+
+    // Render the scene to an SVG file
+    scene.render("output/circle_animation.svg")?;
+
+    Ok(())
+}
+```
+
+## Example Categories
+
+Organize examples by complexity:
+
+```
+examples/
+├── basic/
+│   ├── hello_circle.rs
+│   ├── shapes.rs
+│   └── colors.rs
+├── intermediate/
+│   ├── animations.rs
+│   ├── transformations.rs
+│   └── scene_composition.rs
+├── advanced/
+│   ├── custom_mobjects.rs
+│   ├── gpu_rendering.rs
+│   └── particle_systems.rs
+└── showcase/
+    ├── fourier_series.rs
+    ├── sorting_algorithms.rs
+    └── physics_simulation.rs
+```
+
+## Example Documentation
+
+- Each example must have a doc comment header
+- Include visual output in `examples/outputs/` for reference
+- Mention in README.md with screenshots
+- Add `[[example]]` sections in Cargo.toml for better organization
+
+## Performance Examples
+
+Include benchmarking examples that demonstrate optimization:
+
+```rust
+//! Performance comparison: Vector operations
+//!
+//! Compares different approaches to batch vector operations
+//! Run with: cargo run --release --example perf_vectors
+
+use std::time::Instant;
+
+fn main() {
+    let vectors: Vec<Vector2D> = (0..1_000_000)
+        .map(|i| Vector2D::new(i as f64, i as f64))
+        .collect();
+
+    // Approach 1: Naive loop
+    let start = Instant::now();
+    let _result: Vec<_> = vectors.iter()
+        .map(|v| v.normalize())
+        .collect();
+    println!("Naive: {:?}", start.elapsed());
+
+    // Approach 2: Parallel with rayon
+    #[cfg(feature = "parallel")]
+    {
+        use rayon::prelude::*;
+        let start = Instant::now();
+        let _result: Vec<_> = vectors.par_iter()
+            .map(|v| v.normalize())
+            .collect();
+        println!("Parallel: {:?}", start.elapsed());
+    }
+}
+```

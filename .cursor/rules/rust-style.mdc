@@ -1,0 +1,50 @@
+---
+globs: *.rs
+description: "Rust coding standards for manim-rs"
+---
+
+# Rust Style Guide
+
+## Code Organization
+
+```rust
+// 1. Imports (grouped: std, external crates, internal)
+use std::f64::consts::PI;
+use serde::{Deserialize, Serialize};
+use crate::core::Vector2D;
+
+// 2. Type definitions
+// 3. Constants
+// 4. Implementation blocks
+// 5. Tests module at bottom
+```
+
+## Performance Standards
+
+- Use `&[T]` over `&Vec<T>` in function parameters
+- Prefer iterators over explicit loops for transformations
+- Use `inline` annotations for hot paths: `#[inline]` or `#[inline(always)]`
+- Profile before optimizing; use `cargo flamegraph` and `criterion` benchmarks
+- Consider SIMD for numeric operations (e.g., `packed_simd`, `wide`)
+- Use `smallvec` for stack-allocated vectors when size is typically small
+
+## Error Handling
+
+- Use `Result<T, E>` for recoverable errors
+- Create domain-specific error types with `thiserror`
+- Use `anyhow` only in application code, not libraries
+- Document error conditions in function docs
+
+## Memory Management
+
+- Prefer owned types unless borrowing is clearly beneficial
+- Use `Cow<'_, T>` when data might be owned or borrowed
+- Avoid `Rc`/`Arc` unless sharing is necessary
+- Consider arena allocation for scene graphs (`typed-arena`, `bumpalo`)
+
+## Naming Conventions
+
+- Types: `PascalCase` (e.g., `MathObject`, `AnimationBuilder`)
+- Functions/methods: `snake_case` (e.g., `create_circle`, `interpolate_value`)
+- Constants: `SCREAMING_SNAKE_CASE` (e.g., `DEFAULT_FPS`, `MAX_RESOLUTION`)
+- Type parameters: Single uppercase letter or descriptive `PascalCase`

@@ -1,0 +1,32 @@
+---
+alwaysApply: true
+description: "Core project structure and philosophy for manim-rs"
+---
+
+# Manim-rs: High-Performance Animation Library
+
+## Project Vision
+
+Manim-rs is a Rust reimagining of Manim (Mathematical Animation Engine), prioritizing:
+
+- **Performance**: Zero-cost abstractions, parallel processing, GPU acceleration where beneficial
+- **Flexibility**: Composable API, extensible animation primitives, multiple rendering backends
+- **Documentation**: Comprehensive docs, examples, and inline comments for all public APIs
+
+## Architecture Principles
+
+1. **Modular Design**: Separate concerns (scene management, rendering, animation, math)
+2. **Type Safety**: Leverage Rust's type system to prevent runtime errors
+3. **Zero-Copy Where Possible**: Minimize allocations and data copying
+4. **Async-Ready**: Design for potential async rendering pipelines
+5. **Backend Agnostic**: Abstract over rendering backends (SVG, Cairo, GPU)
+
+## Core Modules (Expected)
+
+- `core`: Fundamental types (Vector2D, Color, Transform)
+- `scene`: Scene graph and object management
+- `animation`: Animation primitives and interpolation
+- `mobject`: Mathematical objects (shapes, text, equations)
+- `renderer`: Backend-agnostic rendering traits
+- `backends`: Specific implementations (SVG, video codecs)
+- `utils`: Common utilities and helpers

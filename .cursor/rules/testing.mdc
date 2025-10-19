@@ -1,0 +1,78 @@
+---
+globs: *.rs
+description: "Testing and benchmarking standards"
+---
+
+# Testing Standards
+
+## Test Organization
+
+```rust
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_vector_addition() {
+        let v1 = Vector2D::new(1.0, 2.0);
+        let v2 = Vector2D::new(3.0, 4.0);
+        let result = v1 + v2;
+
+        assert_eq!(result.x, 4.0);
+        assert_eq!(result.y, 6.0);
+    }
+
+    #[test]
+    fn test_vector_magnitude() {
+        let v = Vector2D::new(3.0, 4.0);
+        assert!((v.magnitude() - 5.0).abs() < 1e-10);
+    }
+}
+```
+
+## Test Coverage Requirements
+
+- All public functions must have unit tests
+- Edge cases: zero values, negative numbers, boundary conditions
+- Use property-based testing (`proptest`) for mathematical operations
+- Integration tests in `tests/` directory for end-to-end scenarios
+
+## Floating-Point Comparisons
+
+```rust
+use approx::{assert_relative_eq, assert_abs_diff_eq};
+
+// For relative comparisons
+assert_relative_eq!(actual, expected, epsilon = 1e-10);
+
+// For absolute comparisons
+assert_abs_diff_eq!(actual, expected, epsilon = 1e-10);
+```
+
+## Benchmarking
+
+Create benchmarks in `benches/` using `criterion`:
+
+```rust
+use criterion::{black_box, criterion_group, criterion_main, Criterion};
+
+fn benchmark_interpolation(c: &mut Criterion) {
+    c.bench_function("interpolate_1000_points", |b| {
+        b.iter(|| {
+            for i in 0..1000 {
+                let alpha = i as f64 / 1000.0;
+                black_box(interpolate(0.0, 100.0, alpha, ease::smooth));
+            }
+        });
+    });
+}
+
+criterion_group!(benches, benchmark_interpolation);
+criterion_main!(benches);
+```
+
+## Performance Regression Tests
+
+- Track benchmark results over time
+- Set performance thresholds for critical paths
+- Use `#[ignore]` for slow tests; run separately with `cargo test -- --ignored`

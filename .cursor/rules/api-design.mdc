@@ -1,0 +1,135 @@
+---
+description: "API design patterns for flexibility and ergonomics"
+---
+
+# API Design Principles
+
+## Builder Pattern for Complex Objects
+
+```rust
+pub struct Circle {
+    center: Vector2D,
+    radius: f64,
+    color: Color,
+    stroke_width: f64,
+}
+
+impl Circle {
+    pub fn builder() -> CircleBuilder {
+        CircleBuilder::default()
+    }
+}
+
+#[derive(Default)]
+pub struct CircleBuilder {
+    center: Vector2D,
+    radius: f64,
+    color: Option<Color>,
+    stroke_width: Option<f64>,
+}
+
+impl CircleBuilder {
+    pub fn center(mut self, center: Vector2D) -> Self {
+        self.center = center;
+        self
+    }
+
+    pub fn radius(mut self, radius: f64) -> Self {
+        self.radius = radius;
+        self
+    }
+
+    pub fn build(self) -> Circle {
+        Circle {
+            center: self.center,
+            radius: self.radius,
+            color: self.color.unwrap_or(Color::WHITE),
+            stroke_width: self.stroke_width.unwrap_or(2.0),
+        }
+    }
+}
+```
+
+## Trait-Based Polymorphism
+
+```rust
+/// Core trait for all animatable objects
+pub trait MObject: Send + Sync {
+    fn render(&self, renderer: &mut dyn Renderer);
+    fn bounding_box(&self) -> BoundingBox;
+    fn transform(&mut self, matrix: &Matrix3);
+}
+
+/// Trait for objects that can be interpolated
+pub trait Interpolatable {
+    fn interpolate(&self, other: &Self, alpha: f64) -> Self;
+}
+```
+
+## Fluent API for Animations
+
+```rust
+scene
+    .add(Circle::builder().radius(2.0).build())
+    .animate()
+    .fade_in(1.0)
+    .then()
+    .move_to(Vector2D::new(3.0, 0.0), 2.0)
+    .with_ease(ease::smooth_in_out)
+    .play();
+```
+
+## Type State Pattern for Safety
+
+```rust
+pub struct Animation<State> {
+    duration: f64,
+    _state: PhantomData<State>,
+}
+
+pub struct Configured;
+pub struct Playing;
+
+impl Animation<Configured> {
+    pub fn play(self) -> Animation<Playing> {
+        // Start animation
+        Animation {
+            duration: self.duration,
+            _state: PhantomData,
+        }
+    }
+}
+
+impl Animation<Playing> {
+    pub fn pause(self) -> Animation<Configured> {
+        // Pause logic
+        Animation {
+            duration: self.duration,
+            _state: PhantomData,
+        }
+    }
+}
+```
+
+## Zero-Cost Abstractions
+
+- Use `impl Trait` for return types to avoid boxing
+- Prefer static dispatch over dynamic dispatch when possible
+- Use const generics for compile-time configuration
+- Leverage newtype pattern for zero-cost semantic types
+
+```rust
+#[derive(Debug, Clone, Copy)]
+#[repr(transparent)]
+pub struct Radians(pub f64);
+
+#[derive(Debug, Clone, Copy)]
+#[repr(transparent)]
+pub struct Degrees(pub f64);
+
+impl From<Degrees> for Radians {
+    fn from(deg: Degrees) -> Self {
+        Radians(deg.0 * PI / 180.0)
+    }
+}
+```

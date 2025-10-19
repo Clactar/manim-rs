@@ -1,0 +1,52 @@
+[package]
+name = "manim-rs"
+version = "0.1.0"
+edition = "2024"
+authors = ["Nicolas Masset"]
+description = "A high-performance mathematical animation engine inspired by Manim, written in Rust"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/Clactar/manim-rs"
+keywords = ["animation", "graphics", "visualization", "mathematical", "rendering"]
+categories = ["graphics", "multimedia", "rendering", "visualization"]
+readme = "README.md"
+
+[dependencies]
+# Math and linear algebra
+nalgebra = "0.33"
+num-traits = "0.2"
+
+# Graphics and rendering
+lyon = "1.0"
+tiny-skia = "0.11"
+
+# Serialization (optional)
+serde = { version = "1.0", optional = true, features = ["derive"] }
+
+# Utilities
+thiserror = "2.0"
+
+[dev-dependencies]
+# Testing
+approx = "0.5"
+criterion = "0.5"
+proptest = "1.5"
+pretty_assertions = "1.4"
+
+[features]
+default = ["svg"]
+svg = []
+gpu = []
+parallel = []
+serde = ["dep:serde", "nalgebra/serde-serialize"]
+
+[[bench]]
+name = "vector_ops"
+harness = false
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+
+[profile.bench]
+inherits = "release"

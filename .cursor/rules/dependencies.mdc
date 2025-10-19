@@ -1,0 +1,76 @@
+---
+description: "Dependency management and crate selection guidelines"
+---
+
+# Dependency Guidelines
+
+## Crate Selection Criteria
+
+1. **Actively maintained**: Recent commits, responsive maintainers
+2. **Well-documented**: Clear API docs and examples
+3. **Minimal dependencies**: Avoid deep dependency trees
+4. **Compatible licensing**: MIT/Apache-2.0 preferred
+5. **Performance-oriented**: Proven benchmarks for critical paths
+
+## Recommended Crates by Category
+
+### Math & Linear Algebra
+
+- `nalgebra` - Comprehensive linear algebra (vectors, matrices, quaternions)
+- `glam` - Lightweight, SIMD-optimized math (faster for simple cases)
+- `num-traits` - Numeric trait abstractions
+
+### Graphics & Rendering
+
+- `lyon` - 2D tessellation for vector graphics
+- `tiny-skia` - Software rasterizer
+- `wgpu` - GPU rendering (for hardware acceleration)
+- `svg` - SVG generation
+
+### Animation & Interpolation
+
+- `interpolation` - Easing functions and splines
+- `keyframe` - Keyframe animation helpers
+
+### Serialization & Configuration
+
+- `serde` - Serialization framework
+- `toml` - Configuration files
+- `serde_json` - JSON import/export
+
+### Performance & Profiling
+
+- `rayon` - Data parallelism
+- `criterion` - Statistical benchmarking
+- `flamegraph` - Profiling visualization
+- `pprof` - Production profiling
+
+### Error Handling
+
+- `thiserror` - Derive macro for error types
+- `color-eyre` - Beautiful error reports (dev/CLI only)
+
+### Testing
+
+- `proptest` - Property-based testing
+- `approx` - Floating-point comparisons
+- `pretty_assertions` - Better assertion output
+
+## Feature Flags
+
+Organize optional functionality behind features:
+
+```toml
+[features]
+default = ["svg"]
+svg = ["dep:svg", "dep:lyon"]
+gpu = ["dep:wgpu"]
+parallel = ["dep:rayon"]
+serde = ["dep:serde", "nalgebra/serde-serialize"]
+```
+
+## Version Pinning
+
+- Use `~` for patch updates: `"~1.2.3"` allows `>=1.2.3, <1.3.0`
+- Lock major versions in production
+- Run `cargo update` regularly and test

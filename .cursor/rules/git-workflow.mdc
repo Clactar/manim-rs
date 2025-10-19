@@ -1,0 +1,85 @@
+---
+description: "Git workflow and commit message conventions"
+---
+
+# Git Workflow
+
+## Commit Message Format
+
+Follow conventional commits:
+
+```
+<type>(<scope>): <subject>
+
+<body>
+
+<footer>
+```
+
+### Types
+
+- `feat`: New feature
+- `fix`: Bug fix
+- `docs`: Documentation changes
+- `perf`: Performance improvement
+- `refactor`: Code refactoring
+- `test`: Test additions or changes
+- `chore`: Build/tooling changes
+
+### Examples
+
+```
+feat(animation): add custom easing function support
+
+Implement support for user-defined easing functions through
+the Ease trait. This allows arbitrary animation curves.
+
+Closes #42
+```
+
+```
+perf(core): optimize vector normalization with SIMD
+
+Use packed_simd for batch vector operations, reducing
+normalization time by 3x for large datasets.
+
+Benchmark results:
+- Before: 45ms for 1M vectors
+- After: 15ms for 1M vectors
+```
+
+## Branch Naming
+
+- `feature/description` - New features
+- `fix/description` - Bug fixes
+- `perf/description` - Performance work
+- `docs/description` - Documentation
+- `refactor/description` - Refactoring
+
+## Pull Request Guidelines
+
+- Keep PRs focused and small when possible
+- Include benchmarks for performance-related changes
+- Add examples for new features
+- Update documentation
+- Ensure `cargo test` and `cargo clippy` pass
+- Run `cargo fmt` before committing
+
+## Pre-commit Checklist
+
+```bash
+# Format code
+cargo fmt
+
+# Check for common mistakes
+cargo clippy -- -D warnings
+
+# Run tests
+cargo test
+
+# Check documentation builds
+cargo doc --no-deps
+
+# Run benchmarks (if performance-related)
+cargo bench
+```

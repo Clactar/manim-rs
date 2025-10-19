@@ -1,0 +1,96 @@
+---
+globs: *.rs
+description: "Documentation standards for public APIs"
+---
+
+# Documentation Requirements
+
+## Public API Documentation
+
+Every public item MUST have documentation including:
+
+### Structs and Enums
+
+````rust
+/// A 2D vector in Euclidean space.
+///
+/// This type is optimized for SIMD operations and uses
+/// aligned memory layout.
+///
+/// # Examples
+///
+/// ```
+/// use manim_rs::core::Vector2D;
+///
+/// let v = Vector2D::new(3.0, 4.0);
+/// assert_eq!(v.magnitude(), 5.0);
+/// ```
+#[derive(Debug, Clone, Copy)]
+pub struct Vector2D {
+    pub x: f64,
+    pub y: f64,
+}
+````
+
+### Functions and Methods
+
+````rust
+/// Interpolates between two values using the given easing function.
+///
+/// # Arguments
+///
+/// * `start` - The starting value
+/// * `end` - The ending value
+/// * `alpha` - Progress value between 0.0 and 1.0
+/// * `ease` - Easing function to apply
+///
+/// # Returns
+///
+/// The interpolated value at progress `alpha`
+///
+/// # Examples
+///
+/// ```
+/// let result = interpolate(0.0, 10.0, 0.5, ease::linear);
+/// assert_eq!(result, 5.0);
+/// ```
+pub fn interpolate<T>(start: T, end: T, alpha: f64, ease: impl Fn(f64) -> f64) -> T
+where
+    T: Interpolatable,
+{
+    // implementation
+}
+````
+
+## Module-Level Documentation
+
+Each module should have a header explaining its purpose:
+
+````rust
+//! Animation primitives and timing functions.
+//!
+//! This module provides the core animation system, including:
+//! - Timeline management
+//! - Easing functions
+//! - Animation composition
+//!
+//! # Examples
+//!
+//! ```
+//! use manim_rs::animation::{Animation, Timeline};
+//!
+//! let mut timeline = Timeline::new();
+//! timeline.add(Animation::fade_in(my_object, 1.0));
+//! ```
+````
+
+## Inline Comments
+
+- Use inline comments ONLY for non-obvious logic or performance tricks
+- Explain "why", not "what" (code should be self-documenting)
+- Keep comments up to date with code changes
+
+## Documentation Tests
+
+- All examples in docs MUST compile and run
+- Use `cargo test --doc` to verify
