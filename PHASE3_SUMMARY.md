@@ -11,12 +11,14 @@ Phase 3 aimed to build the foundational mobject system for manim-rs. The followi
 ### ✅ Phase 3.1: Base Mobject System
 
 1. **Core Mobject Trait** (`src/mobject/mod.rs`)
+
    - Unified interface for all drawable/animatable objects
    - Methods: `render()`, `bounding_box()`, `apply_transform()`, `position()`, `set_position()`, `opacity()`, `set_opacity()`, `clone_mobject()`
    - Object-safe trait design for dynamic dispatch
    - Fully tested with mock implementations
 
 2. **VMobject** (`src/mobject/vmobject.rs`)
+
    - Base implementation for vector-based graphics
    - Path storage with stroke/fill styling
    - Opacity and position management
@@ -34,6 +36,7 @@ Phase 3 aimed to build the foundational mobject system for manim-rs. The followi
 ### ✅ Phase 3.2: Geometric Primitives
 
 All geometric primitives implemented with:
+
 - Builder patterns for fluent construction
 - Comprehensive test coverage
 - Doctests for API documentation
@@ -42,42 +45,49 @@ All geometric primitives implemented with:
 #### Implemented Shapes:
 
 1. **Circle** (`src/mobject/geometry/circle.rs`)
+
    - 4-segment cubic Bézier approximation
    - Magic number constant: 0.5519150244935105707435627
    - 19 unit tests
    - Example: `Circle::builder().radius(2.0).stroke_color(Color::BLUE).build()`
 
 2. **Rectangle & Square** (`src/mobject/geometry/rectangle.rs`)
+
    - Rectangle with configurable width/height
    - Square as specialized rectangle
    - 8 unit tests
    - Example: `Square::builder().side_length(1.0).fill_color(Color::RED).build()`
 
 3. **Line** (`src/mobject/geometry/line.rs`)
+
    - Simple line segment between two points
    - Length and angle calculations
    - 5 unit tests
    - Example: `Line::new(start, end)`
 
 4. **Polygon** (`src/mobject/geometry/polygon.rs`)
+
    - Regular and irregular polygons
    - `Polygon::regular(sides, radius)` helper
    - 6 unit tests
    - Example: `Polygon::regular(6, 1.0)` // Hexagon
 
 5. **Ellipse** (`src/mobject/geometry/ellipse.rs`)
+
    - 4-segment cubic Bézier approximation
    - Reduces to circle when width == height
    - 4 unit tests
    - Example: `Ellipse::new(width, height)`
 
 6. **Arc** (`src/mobject/geometry/arc.rs`)
+
    - Circular arcs with start/end angles
    - Multi-segment Bézier approximation for large angles
    - 6 unit tests
    - Example: `Arc::new(radius, 0.0, PI/2.0)`
 
 7. **Arrow** (`src/mobject/geometry/arrow.rs`)
+
    - Composite of Line + Polygon tip
    - Customizable tip size
    - 4 unit tests
@@ -97,6 +107,7 @@ All geometric primitives implemented with:
 - **Doctests**: All passing in public API documentation
 
 ### Integration Tests Cover:
+
 - All shapes can be created
 - MobjectGroup with multiple shapes
 - Nested mobject groups
@@ -110,19 +121,20 @@ All geometric primitives implemented with:
 
 Added comprehensive benchmarks in `benches/mobject_ops.rs`:
 
-| Operation | Time (approx) |
-|-----------|---------------|
-| Circle creation | ~340 ps |
-| Circle builder | ~27 ns |
-| Rectangle creation | ~338 ps |
-| Regular hexagon | ~70 ns |
-| Group add 10 items | ~405 ns |
-| Mobject clone | ~69 ns |
-| Transform application | ~38 ns |
+| Operation             | Time (approx) |
+| --------------------- | ------------- |
+| Circle creation       | ~340 ps       |
+| Circle builder        | ~27 ns        |
+| Rectangle creation    | ~338 ps       |
+| Regular hexagon       | ~70 ns        |
+| Group add 10 items    | ~405 ns       |
+| Mobject clone         | ~69 ns        |
+| Transform application | ~38 ns        |
 
 ## 📚 Examples
 
 1. **Basic Shapes** (`examples/basic/shapes.rs`)
+
    - Demonstrates Circle, Square, Rectangle
    - Renders to SVG
    - Shows stroke/fill color usage
@@ -137,6 +149,7 @@ Added comprehensive benchmarks in `benches/mobject_ops.rs`:
 ## 🔧 Quality Assurance
 
 All quality gates passed:
+
 - ✅ `cargo test --all-features` - 282 tests passing
 - ✅ `cargo clippy --all-features` - No warnings
 - ✅ `cargo fmt --check` - Properly formatted
@@ -146,6 +159,7 @@ All quality gates passed:
 ## 📝 API Design Highlights
 
 1. **Builder Patterns**: All shapes support fluent builder APIs
+
    ```rust
    Circle::builder()
        .radius(2.0)
@@ -157,11 +171,13 @@ All quality gates passed:
    ```
 
 2. **Trait-Based Polymorphism**: All shapes implement `Mobject`, enabling:
+
    - Uniform rendering interface
    - Consistent transform application
    - Dynamic dispatch via `Box<dyn Mobject>`
 
 3. **Hierarchical Composition**: `MobjectGroup` enables scene graph structure:
+
    ```rust
    let mut group = MobjectGroup::new();
    group.add(Box::new(circle))
@@ -180,6 +196,7 @@ All quality gates passed:
 The following components from the original plan are **deferred** to future iterations due to external dependencies and scope:
 
 ### Phase 3.3: Complex Shapes (Deferred)
+
 - **SVG Path Parser**: Requires `roxmltree` or similar XML parser
 - **SVG File Import**: Complex feature requiring:
   - XML parsing
@@ -189,6 +206,7 @@ The following components from the original plan are **deferred** to future itera
   - Estimated effort: 3-4 days
 
 ### Phase 3.4: Text Rendering (Deferred)
+
 - **Font Management**: Requires `fontdue` or `ab_glyph` dependency
 - **Glyph Path Extraction**: Complex font rendering pipeline
 - **Text Mobject**: Rich text with alignment, kerning, line height
@@ -196,6 +214,7 @@ The following components from the original plan are **deferred** to future itera
 - Estimated effort: 5-7 days
 
 ### Rationale for Deferral:
+
 1. **External Dependencies**: Both require adding significant dependencies (`roxmltree`, `fontdue`)
 2. **Complexity**: Each is a substantial subsystem (SVG parsing, font rendering)
 3. **Core Functionality Complete**: All essential geometric primitives are implemented
@@ -204,6 +223,7 @@ The following components from the original plan are **deferred** to future itera
 ## 🎨 Rendering Support
 
 Currently supports:
+
 - ✅ **SVG Backend**: Full support for all shapes
 - ✅ **Raster Backend**: Supported via tiny-skia
 - ⏳ **GPU Backend**: Infrastructure in place, shapes render via existing backends
@@ -211,11 +231,13 @@ Currently supports:
 ## 📐 Technical Details
 
 ### Bézier Approximation
+
 - **Circles/Ellipses**: 4-segment cubic Bézier (magic number: 0.5519...)
 - **Arcs**: Adaptive segmentation (max π/2 per segment)
 - **Quality**: Visually indistinguishable from true circles at typical render scales
 
 ### Memory Layout
+
 - `VMobject`: ~120 bytes (path + styling)
 - `Circle`: VMobject + radius (f64)
 - `MobjectGroup`: Vec of boxed trait objects (heap allocated)
@@ -224,6 +246,7 @@ Currently supports:
 ## 🔄 Git History
 
 Commits on `feature/phase-3-mobjects`:
+
 1. Initial mobject system setup
 2. Circle, Rectangle, Square implementation
 3. Line, Polygon, Ellipse implementation
@@ -245,15 +268,15 @@ Commits on `feature/phase-3-mobjects`:
 
 ## 📊 Metrics Summary
 
-| Metric | Value |
-|--------|-------|
-| **Files Added** | 11 (mobjects + tests) |
-| **Lines of Code** | ~3,500 |
-| **Test Coverage** | 282 tests |
-| **Geometric Shapes** | 8 primitives |
-| **API Stability** | Stable (builder patterns established) |
-| **Documentation** | Complete (all public APIs documented) |
-| **Performance** | Excellent (sub-nanosecond simple operations) |
+| Metric               | Value                                        |
+| -------------------- | -------------------------------------------- |
+| **Files Added**      | 11 (mobjects + tests)                        |
+| **Lines of Code**    | ~3,500                                       |
+| **Test Coverage**    | 282 tests                                    |
+| **Geometric Shapes** | 8 primitives                                 |
+| **API Stability**    | Stable (builder patterns established)        |
+| **Documentation**    | Complete (all public APIs documented)        |
+| **Performance**      | Excellent (sub-nanosecond simple operations) |
 
 ## ✨ Highlights
 
@@ -294,9 +317,9 @@ renderer.save("output/milestone1.svg")?;
 
 ---
 
-*For questions or issues, refer to:*
-- *Code: `src/mobject/`*
-- *Tests: `tests/mobject_integration_tests.rs`*
-- *Examples: `examples/basic/shapes.rs`, `examples/intermediate/geometry_showcase.rs`*
-- *Benchmarks: `benches/mobject_ops.rs`*
+_For questions or issues, refer to:_
 
+- _Code: `src/mobject/`_
+- _Tests: `tests/mobject_integration_tests.rs`_
+- _Examples: `examples/basic/shapes.rs`, `examples/intermediate/geometry_showcase.rs`_
+- _Benchmarks: `benches/mobject_ops.rs`_
