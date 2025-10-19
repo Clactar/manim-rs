@@ -1,7 +1,7 @@
 //! Benchmarks for mobject operations.
 
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
-use manim_rs::core::{Color, Vector2D};
+use manim_rs::core::Color;
 use manim_rs::mobject::geometry::{Circle, Polygon, Rectangle};
 use manim_rs::mobject::{Mobject, MobjectGroup};
 

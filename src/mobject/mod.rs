@@ -350,9 +350,10 @@ mod tests {
 
     #[test]
     fn test_trait_object_in_vec() {
-        let mut mobjects: Vec<Box<dyn Mobject>> = Vec::new();
-        mobjects.push(Box::new(MockMobject::new()));
-        mobjects.push(Box::new(MockMobject::new()));
+        let mobjects: Vec<Box<dyn Mobject>> = vec![
+            Box::new(MockMobject::new()),
+            Box::new(MockMobject::new()),
+        ];
 
         assert_eq!(mobjects.len(), 2);
         assert_eq!(mobjects[0].opacity(), 1.0);
