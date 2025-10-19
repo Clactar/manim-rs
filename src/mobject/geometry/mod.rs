@@ -20,12 +20,16 @@
 //!     .build();
 //! ```
 
+mod arc;
+mod arrow;
 mod circle;
 mod ellipse;
 mod line;
 mod polygon;
 mod rectangle;
 
+pub use arc::{Arc, ArcBuilder};
+pub use arrow::{Arrow, ArrowBuilder};
 pub use circle::{Circle, CircleBuilder};
 pub use ellipse::{Ellipse, EllipseBuilder};
 pub use line::{Line, LineBuilder};

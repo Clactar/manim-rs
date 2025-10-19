@@ -32,6 +32,26 @@ pub struct MobjectGroup {
     opacity: f64,
 }
 
+impl Clone for MobjectGroup {
+    fn clone(&self) -> Self {
+        Self {
+            mobjects: self.mobjects.iter().map(|m| m.clone_mobject()).collect(),
+            position: self.position,
+            opacity: self.opacity,
+        }
+    }
+}
+
+impl std::fmt::Debug for MobjectGroup {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("MobjectGroup")
+            .field("mobjects", &format!("{} items", self.mobjects.len()))
+            .field("position", &self.position)
+            .field("opacity", &self.opacity)
+            .finish()
+    }
+}
+
 impl Default for MobjectGroup {
     fn default() -> Self {
         Self::new()
