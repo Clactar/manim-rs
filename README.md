@@ -146,17 +146,20 @@ See [benches/](benches/) for detailed performance benchmarks.
 
 See [ROADMAP.md](ROADMAP.md) for the complete development plan and [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) for detailed next steps.
 
-**Current Status**: Phase 1 Complete ✅ → Phase 2 In Progress 🔄
+**Current Status**: Phase 1.1 Complete ✅ → Phase 1.2 In Progress 🔄
 
 ### Completed
+
 - [x] Project setup and core architecture
 - [x] Core types: `Vector2D`, `Color`, `Transform`
-- [x] Comprehensive documentation and Cursor rules
-- [x] Testing infrastructure with 22 unit tests
-- [x] Benchmarking suite
+- [ ] Comprehensive documentation and Cursor rules
+- [ ] Testing infrastructure with 22 unit tests
+- [ ] Benchmarking suite
 
 ### Next Milestones
-- [ ] **Milestone 1** (3-4 weeks): Static shapes rendered to SVG
+
+- [ ] **Milestone 1** (4-5 weeks): Static shapes rendered to SVG
+  - Extended math types (BoundingBox, Bézier curves)
   - Rendering traits and SVG backend
   - Basic geometric primitives (Circle, Rectangle, Line)
 - [ ] **Milestone 2** (2-3 weeks): Simple animations
@@ -196,4 +199,3 @@ Unless you explicitly state otherwise, any contribution intentionally submitted 
 ---
 
 Made with ❤️ and 🦀
-
