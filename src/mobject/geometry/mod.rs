@@ -2,11 +2,9 @@
 //!
 //! This module provides fundamental geometric shapes that can be rendered and animated:
 //! - [`Circle`] - Perfect circles using Bézier curve approximation
-//! - [`Rectangle`] / [`Square`] - Rectangular shapes with optional rounded corners
+//! - [`Rectangle`] / [`Square`] - Rectangular shapes
 //! - [`Line`] - Line segments
 //! - [`Polygon`] - Regular and irregular polygons
-//! - [`Arc`] - Circular arcs
-//! - [`Arrow`] - Arrows with customizable tips
 //! - [`Ellipse`] - Ellipses
 //!
 //! # Examples
@@ -23,7 +21,13 @@
 //! ```
 
 mod circle;
+mod ellipse;
+mod line;
+mod polygon;
 mod rectangle;
 
 pub use circle::{Circle, CircleBuilder};
+pub use ellipse::{Ellipse, EllipseBuilder};
+pub use line::{Line, LineBuilder};
+pub use polygon::{Polygon, PolygonBuilder};
 pub use rectangle::{Rectangle, RectangleBuilder, Square, SquareBuilder};
