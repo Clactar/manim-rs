@@ -19,6 +19,7 @@
 /// assert!((magnitude - 5.0).abs() < 1e-10);
 /// ```
 #[derive(Debug, Clone, Copy, PartialEq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Vector2D {
     pub x: f64,
     pub y: f64,

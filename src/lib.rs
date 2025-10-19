@@ -11,11 +11,11 @@
 //! // Create vectors and colors
 //! let position = Vector2D::new(1.0, 2.0);
 //! let color = Color::rgb(255, 0, 0);
-//! 
+//!
 //! // Use transformations
 //! let transform = Transform::translate(5.0, 3.0);
 //! let new_pos = transform.apply(position);
-//! 
+//!
 //! assert_eq!(new_pos.x, 6.0);
 //! assert_eq!(new_pos.y, 5.0);
 //! ```

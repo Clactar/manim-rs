@@ -30,7 +30,7 @@ fn main() {
         let t = i as f64 / 5.0;
         let color = red.lerp(blue, t);
         print!("  t={:.1}: {} ", t, color.to_hex());
-        print!("RGB({:.2}, {:.2}, {:.2})\n", color.r, color.g, color.b);
+        println!("RGB({:.2}, {:.2}, {:.2})", color.r, color.g, color.b);
     }
 
     // Alpha channel
