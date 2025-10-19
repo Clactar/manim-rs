@@ -146,4 +146,3 @@ fn test_ellipse_is_circle_when_equal() {
     let ellipse = Ellipse::new(2.0, 2.0);
     assert_eq!(ellipse.width(), ellipse.height());
 }
-

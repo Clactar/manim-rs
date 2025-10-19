@@ -64,6 +64,10 @@ harness = false
 name = "path_ops"
 harness = false
 
+[[bench]]
+name = "mobject_ops"
+harness = false
+
 [profile.release]
 opt-level = 3
 lto = true

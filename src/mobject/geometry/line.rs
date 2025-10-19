@@ -261,4 +261,3 @@ mod tests {
         assert_eq!(line.end(), Vector2D::new(1.0, 1.0));
     }
 }
-

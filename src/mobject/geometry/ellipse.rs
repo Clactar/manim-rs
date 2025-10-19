@@ -297,4 +297,3 @@ mod tests {
         assert_eq!(ellipse.height(), 4.0);
     }
 }
-

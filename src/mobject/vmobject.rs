@@ -168,7 +168,6 @@ impl VMobject {
         self
     }
 
-
     /// Returns a reference to the underlying path.
     ///
     /// # Examples

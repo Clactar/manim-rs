@@ -25,10 +25,12 @@
 use crate::core::{BoundingBox, Result, Transform, Vector2D};
 use crate::renderer::Renderer;
 
+mod bezier_path;
 pub mod geometry;
 mod group;
 mod vmobject;
 
+pub use bezier_path::BezierPath;
 pub use group::MobjectGroup;
 pub use vmobject::VMobject;
 

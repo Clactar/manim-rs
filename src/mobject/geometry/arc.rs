@@ -342,4 +342,3 @@ mod tests {
         assert_relative_eq!(arc.angle(), 3.0 * PI / 2.0);
     }
 }
-

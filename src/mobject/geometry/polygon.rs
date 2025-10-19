@@ -76,10 +76,7 @@ impl Polygon {
 
         for i in 0..sides {
             let angle = start_angle + i as f64 * angle_step;
-            vertices.push(Vector2D::new(
-                radius * angle.cos(),
-                radius * angle.sin(),
-            ));
+            vertices.push(Vector2D::new(radius * angle.cos(), radius * angle.sin()));
         }
 
         Self::new(vertices)
@@ -241,10 +238,7 @@ impl PolygonBuilder {
 
         for i in 0..sides {
             let angle = start_angle + i as f64 * angle_step;
-            vertices.push(Vector2D::new(
-                radius * angle.cos(),
-                radius * angle.sin(),
-            ));
+            vertices.push(Vector2D::new(radius * angle.cos(), radius * angle.sin()));
         }
 
         vertices
@@ -325,4 +319,3 @@ mod tests {
         assert_eq!(polygon.vertices().len(), 5);
     }
 }
-

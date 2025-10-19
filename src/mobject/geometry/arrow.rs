@@ -124,7 +124,9 @@ impl Arrow {
         // Create the arrowhead tip
         let tip_base_center = end - direction * (tip_length / length);
 
-        let perpendicular = Vector2D::new(-direction.y, direction.x).normalize().unwrap_or(Vector2D::new(0.0, 1.0));
+        let perpendicular = Vector2D::new(-direction.y, direction.x)
+            .normalize()
+            .unwrap_or(Vector2D::new(0.0, 1.0));
 
         let tip_vertices = vec![
             end, // Point of the arrow
@@ -250,7 +252,9 @@ impl ArrowBuilder {
             line.set_opacity(self.opacity);
 
             let tip_base_center = self.end - direction * (self.tip_length / length);
-            let perpendicular = Vector2D::new(-direction.y, direction.x).normalize().unwrap_or(Vector2D::new(0.0, 1.0));
+            let perpendicular = Vector2D::new(-direction.y, direction.x)
+                .normalize()
+                .unwrap_or(Vector2D::new(0.0, 1.0));
 
             let tip_vertices = vec![
                 self.end,
@@ -330,4 +334,3 @@ mod tests {
         assert_eq!(arrow.start(), Vector2D::ZERO);
     }
 }
-

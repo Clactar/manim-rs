@@ -208,4 +208,3 @@ fn main() -> manim_rs::core::Result<()> {
 
     Ok(())
 }
-
