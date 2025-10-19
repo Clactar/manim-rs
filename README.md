@@ -12,7 +12,7 @@ A Rust-first exploration of Manim-style mathematical animation primitives. The c
 
 ## 🎯 Project Status
 
-**Phase 1.2 Complete** — Core math types and documentation are production-ready. Scene management, rendering backends, animation primitives, and mobject support are planned but not yet implemented.
+**Phase 2 In Progress** — Core math types are production-ready. The focus now shifts to rendering traits, SVG backend work, and foundational mobjects.
 
 ## 📦 Installation
 

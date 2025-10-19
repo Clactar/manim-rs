@@ -4,7 +4,7 @@ This document provides granular, actionable tasks for implementing manim-rs acco
 
 ---
 
-## Immediate Focus: Phase 1.2 & Phase 2 - Extended Math + Rendering Foundation
+## Immediate Focus: Phase 2 - Rendering Foundation
 
 ### Why This Order?
 
@@ -13,7 +13,7 @@ Based on analyzing the [Manim Community repository](https://github.com/ManimComm
 ```
 Core Math (✅ Phase 1.1 Done)
     ↓
-Extended Math (BoundingBox, Bézier, etc.) (Phase 1.2)
+Extended Math (BoundingBox, Bézier, etc.) (✅ Phase 1.2 Done)
     ↓
 Rendering Backend
     ↓
@@ -26,11 +26,13 @@ Scenes (orchestrate everything)
 Export (output scenes)
 ```
 
-We **cannot** implement rendering without geometric primitives (bézier, bounding box), and we **cannot** implement mobjects without a renderer. Therefore, **complete foundational math first, then rendering**.
+We **cannot** implement rendering without geometric primitives (bézier, bounding box), and we **cannot** implement mobjects without a renderer. With the foundational math complete, the next priority is the rendering layer.
 
 ---
 
-## Phase 1.2: Extended Math Types (Week 1)
+## Phase 1.2: Extended Math Types (Completed ✅)
+
+> Completed on 2025-10-19. Section retained for reference when revisiting design decisions.
 
 ### Task 1.2.1: BoundingBox
 
