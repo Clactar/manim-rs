@@ -51,6 +51,11 @@ name = "shapes"
 path = "examples/basic/shapes.rs"
 required-features = ["svg"]
 
+[[example]]
+name = "geometry_showcase"
+path = "examples/intermediate/geometry_showcase.rs"
+required-features = ["svg"]
+
 [[bench]]
 name = "vector_ops"
 harness = false
