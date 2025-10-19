@@ -32,6 +32,12 @@ pub struct MobjectGroup {
     opacity: f64,
 }
 
+impl Default for MobjectGroup {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl MobjectGroup {
     /// Creates a new empty mobject group.
     ///
@@ -507,4 +513,3 @@ mod tests {
         assert_eq!(outer_group.len(), 1);
     }
 }
-

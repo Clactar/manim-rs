@@ -488,4 +488,3 @@ mod tests {
         assert_eq!(square.side_length(), 4.0);
     }
 }
-

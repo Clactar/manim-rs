@@ -520,9 +520,7 @@ mod tests {
 
     #[test]
     fn test_circle_builder_center() {
-        let circle = Circle::builder()
-            .center(Vector2D::new(1.0, 2.0))
-            .build();
+        let circle = Circle::builder().center(Vector2D::new(1.0, 2.0)).build();
         assert_eq!(circle.position(), Vector2D::new(1.0, 2.0));
     }
 
@@ -538,10 +536,7 @@ mod tests {
 
     #[test]
     fn test_circle_builder_no_stroke() {
-        let circle = Circle::builder()
-            .no_stroke()
-            .fill_color(Color::RED)
-            .build();
+        let circle = Circle::builder().no_stroke().fill_color(Color::RED).build();
         assert!(circle.vmobject.stroke_color().is_none());
         assert_eq!(circle.vmobject.fill_color(), Some(Color::RED));
     }
@@ -591,4 +586,3 @@ mod tests {
         assert_eq!(circle.position(), Vector2D::new(3.0, 4.0));
     }
 }
-

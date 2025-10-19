@@ -50,7 +50,7 @@ impl VMobject {
     /// # Examples
     ///
     /// ```
-    /// use manim_rs::mobject::VMobject;
+    /// use manim_rs::mobject::{Mobject, VMobject};
     /// use manim_rs::renderer::Path;
     ///
     /// let vmobject = VMobject::new(Path::new());
@@ -420,7 +420,9 @@ mod tests {
     #[test]
     fn test_vmobject_render_both_stroke_and_fill() {
         let mut vmobject = VMobject::new(Path::new());
-        vmobject.set_stroke(Color::BLACK, 1.0).set_fill(Color::YELLOW);
+        vmobject
+            .set_stroke(Color::BLACK, 1.0)
+            .set_fill(Color::YELLOW);
 
         let mut renderer = TestRenderer::new();
         vmobject.render(&mut renderer).unwrap();
@@ -524,4 +526,3 @@ mod tests {
         assert_eq!(path.len(), 1);
     }
 }
-
