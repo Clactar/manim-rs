@@ -4,15 +4,17 @@ A Rust-first exploration of Manim-style mathematical animation primitives. The c
 
 ## ✨ Current Capabilities
 
-- 📐 Core math types: `Vector2D`, `Color`, `Transform`, `Angle`, `BoundingBox`, `QuadraticBezier`, `CubicBezier`
-- 📚 Full documentation: every public API ships with runnable examples
-- ✅ 70 unit tests + 56 doctests covering edge cases and error paths
-- ⏱️ Criterion benchmark suite for vector operations
-- 🧭 Clear roadmap for scenes, animation, and rendering backends
+- 📐 **Core Math**: `Vector2D`, `Color`, `Transform`, `Angle`, `BoundingBox`, Bézier curves
+- 🎨 **Rendering**: SVG and Raster (PNG) backends with feature flags
+- 🖼️ **Output**: Export static shapes to SVG or high-quality PNG images
+- 📚 **Documentation**: Every public API has runnable examples
+- ✅ **Testing**: 188 unit/integration tests + 101 doc tests (all passing)
+- ⚡ **Performance**: SmallVec optimization, SIMD via tiny-skia, zero-copy design
+- 🧭 **Roadmap**: Clear path to animations, mobjects, and video export
 
 ## 🎯 Project Status
 
-**Phase 2 In Progress** — Core math types are production-ready. The focus now shifts to rendering traits, SVG backend work, and foundational mobjects.
+**Phase 2 Complete! ✅** — Core math and rendering backends are production-ready. Both SVG and PNG export work. Next: Mobject system (reusable geometric shapes).
 
 ## 📦 Installation
 
@@ -31,37 +33,64 @@ cargo add --git https://github.com/Clactar/manim-rs.git
 
 ## 🚀 Quick Start
 
+**Render shapes to SVG:**
+
 ```rust
-use manim_rs::core::{BoundingBox, Color, QuadraticBezier, Vector2D};
+use manim_rs::backends::SvgRenderer;
+use manim_rs::core::{Color, Vector2D};
+use manim_rs::renderer::{Path, PathStyle, Renderer};
 
-fn main() {
-    let start = Vector2D::new(0.0, 0.0);
-    let control = Vector2D::new(0.5, 1.0);
-    let end = Vector2D::new(1.0, 0.0);
-
-    let curve = QuadraticBezier::new(start, control, end);
-    let bbox = BoundingBox::from_points([start, control, end]);
-
-    println!("Curve midpoint: {:?}", curve.evaluate(0.5));
-    println!("Bounding box dimensions: {:?}", bbox.dimensions());
-
-    let highlight = Color::from_hex("#FF8800").unwrap();
-    println!("Highlight color: {}", highlight.to_hex());
+fn main() -> manim_rs::core::Result<()> {
+    let mut renderer = SvgRenderer::new(800, 600);
+    
+    // Create a circle using bezier curves
+    let mut circle = Path::new();
+    let r = 100.0;
+    let k = 0.552; // Magic number for circle approximation
+    
+    circle.move_to(Vector2D::new(r, 0.0))
+        .cubic_to(Vector2D::new(r, r*k), Vector2D::new(r*k, r), Vector2D::new(0.0, r))
+        .cubic_to(Vector2D::new(-r*k, r), Vector2D::new(-r, r*k), Vector2D::new(-r, 0.0))
+        .cubic_to(Vector2D::new(-r, -r*k), Vector2D::new(-r*k, -r), Vector2D::new(0.0, -r))
+        .cubic_to(Vector2D::new(r*k, -r), Vector2D::new(r, -r*k), Vector2D::new(r, 0.0))
+        .close();
+    
+    let style = PathStyle::stroke(Color::BLUE, 2.0)
+        .with_fill(Color::from_hex("#87CEEB")?);
+    
+    renderer.begin_frame()?;
+    renderer.clear(Color::WHITE)?;
+    renderer.draw_path(&circle, &style)?;
+    renderer.end_frame()?;
+    
+    renderer.save("output.svg")?;
+    Ok(())
 }
+```
+
+**Or render to PNG with the raster backend:**
+
+```rust
+use manim_rs::backends::RasterRenderer;
+// ... same path creation ...
+renderer.save_png("output.png")?;
 ```
 
 ## 📖 Examples
 
 Real demos live in the [examples](examples/) directory:
 
-- `vector_demo.rs` — Vector math operations, normalization, interpolation
-- `color_demo.rs` — Color creation, conversion, and interpolation utilities
-- `basic/`, `intermediate/`, `advanced/`, `showcase/` — Reserved for upcoming scene-based demos
+- `svg_basic.rs` — Render circle, square, triangle to SVG
+- `raster_basic.rs` — Render shapes to PNG with anti-aliasing
+- `path_demo.rs` — Path building and manipulation
+- `vector_demo.rs` — Vector math operations
+- `color_demo.rs` — Color utilities
 
 Run an example:
 
 ```bash
-cargo run --example vector_demo
+cargo run --example svg_basic --features svg
+cargo run --example raster_basic --features raster
 ```
 
 ## 🏗️ Architecture
@@ -69,16 +98,16 @@ cargo run --example vector_demo
 ```
 manim-rs/
 ├── src/
-│   ├── core/          # Fundamental math types (implemented)
-│   ├── scene/         # (WIP) scene graph and object management
-│   ├── animation/     # (WIP) animation primitives and timing
-│   ├── mobject/       # (WIP) mathematical objects (shapes, text, equations)
-│   ├── renderer/      # (WIP) backend-agnostic rendering traits
-│   ├── backends/      # (WIP) concrete rendering backends
-│   └── utils/         # (WIP) shared utilities
-├── examples/          # Runnable examples and demos
-├── benches/           # Criterion benchmarks
-└── tests/             # Future integration tests
+│   ├── core/          # ✅ Math types (Vector2D, Color, Transform, Bézier, etc.)
+│   ├── renderer/      # ✅ Backend-agnostic rendering traits (Renderer, Path, Style)
+│   ├── backends/      # ✅ SVG and Raster (tiny-skia) implementations
+│   ├── scene/         # 🔄 Scene graph and object management (placeholder)
+│   ├── animation/     # ⏳ Animation primitives and timing (Phase 4)
+│   ├── mobject/       # ⏳ Geometric shapes and text (Phase 3, next)
+│   └── utils/         # 🔄 Shared utilities
+├── examples/          # ✅ svg_basic, raster_basic, path_demo, vector_demo, color_demo
+├── benches/           # ✅ Criterion benchmarks (vector_ops, path_ops)
+└── tests/             # ✅ Integration tests (svg_backend, raster_backend, renderer)
 ```
 
 ## 🎨 Design Principles
@@ -116,41 +145,51 @@ cargo clippy --all-targets --all-features -- -D warnings
 
 ## 📊 Performance
 
-Phase 1.2 ships with Criterion benchmarks for vector normalization, dot products, and interpolation. More benchmarks will arrive as new modules land.
+Comprehensive Criterion benchmarks track performance:
+- Vector operations (normalization, dot/cross products, interpolation)
+- Path operations (bounding box, transforms, cloning)
+- Small path optimization (16-command inline capacity via SmallVec)
 
 ```bash
-cargo bench --no-run
+cargo bench
 ```
+
+View results: `target/criterion/report/index.html`
 
 ## 🗺️ Roadmap
 
 See [ROADMAP.md](ROADMAP.md) and [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) for detailed planning.
 
-**Current Status**: Phase 1.2 Complete ✅ → Phase 2 (Rendering Foundations) Up Next 🔄
+**Current Status**: Phase 2 Complete ✅ → Phase 3 (Mobjects) Up Next 🔄
 
-### Completed
+### Completed ✅
 
-- [x] Project setup and core architecture
-- [x] Core math types: `Vector2D`, `Color`, `Transform`, `Angle`, `BoundingBox`, Bézier curves
-- [x] Documentation coverage for all public APIs
-- [x] Testing infrastructure with 70 unit tests + 56 doctests
-- [x] Criterion benchmark suite for vector operations
+- [x] **Phase 1**: Core math types (Vector2D, Color, Transform, Angle, BoundingBox, Bézier)
+- [x] **Phase 2.1**: Rendering traits (Renderer, Path, PathStyle, PathProvider)
+- [x] **Phase 2.2**: SVG backend with hand-crafted XML generation
+- [x] **Phase 2.3**: Raster backend with tiny-skia integration
+- [x] 188 unit/integration tests + 101 doc tests (all passing)
+- [x] Zero clippy warnings (strict mode)
+- [x] Complete API documentation with examples
+- [x] Working examples for SVG and PNG output
 
 ### Next Milestones
 
-- [ ] **Milestone 1** (Rendering Foundations)
-  - Rendering traits and SVG backend(s)
-  - Basic geometric primitives (Circle, Rectangle, Line)
-- [ ] **Milestone 2** (Animation Basics)
-  - Animation system with easing functions
-  - FadeIn, Transform, Move primitives
-- [ ] **Milestone 3** (Typography)
-  - Text rendering pipeline
-  - Mathematical equation support (LaTeX/MathML)
-- [ ] **Milestone 4** (Video Export)
-  - Frame sequence generation
-  - FFmpeg integration for MP4/WebM output
-- [ ] **Future**: GPU rendering, 3D scenes, interactive previews
+- [ ] **Phase 3.1** (Mobject System) — Next up! 🔄
+  - Mobject trait for drawable objects
+  - VMobject for vector-based shapes
+  - Transform and style management
+- [ ] **Phase 3.2** (Geometric Primitives)
+  - Circle, Rectangle, Square, Line, Polygon
+  - Arrow with customizable tips
+- [ ] **Phase 4** (Animation System)
+  - Timeline and easing functions
+  - FadeIn, Transform, Move, Rotate animations
+- [ ] **Phase 5** (Scene Management)
+  - Scene orchestration and camera system
+- [ ] **Phase 6** (Video Export)
+  - FFmpeg integration for MP4/WebM
+- [ ] **Future**: GPU acceleration, 3D support, interactive previews
 
 ## 📄 License
 
