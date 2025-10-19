@@ -8,30 +8,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Initial project setup
-- Core types: `Vector2D`, `Color`, `Transform`
-- Basic project structure with modules
-- Comprehensive documentation standards
-- Testing infrastructure
-- Cursor rules for development guidelines
+
+- Extended math types: `BoundingBox`, `QuadraticBezier`, `CubicBezier`
+- Angle types: `Degrees` and `Radians` with conversions and trig functions
+- Additional Vector2D methods: `min_components`, `max_components`
+- Comprehensive unit tests for all new types (70 total tests)
+- Complete documentation with examples for all public APIs
 
 ### Changed
-- Nothing yet
 
-### Deprecated
-- Nothing yet
-
-### Removed
-- Nothing yet
+- Updated prelude to include `Transform`
+- Enhanced core module exports with new types
 
 ### Fixed
-- Nothing yet
 
-### Security
-- Nothing yet
+- All clippy warnings resolved
+- All doctests passing
+- Code formatting consistent with rustfmt
 
 ## [0.1.0] - 2025-10-19
 
 ### Added
-- Initial release with core types and project foundation
 
+- Initial release with core types and project foundation

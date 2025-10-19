@@ -366,4 +366,3 @@ mod tests {
         assert_eq!(mid, Vector2D::new(5.0, 5.0));
     }
 }
-

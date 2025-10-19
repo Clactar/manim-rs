@@ -299,7 +299,11 @@ mod tests {
         assert_relative_eq!(Radians(5.0 * PI).normalized().0, PI, epsilon = 1e-10);
         assert_relative_eq!(Radians(2.0 * PI).normalized().0, 0.0, epsilon = 1e-10);
         assert_relative_eq!(Radians(0.0).normalized().0, 0.0, epsilon = 1e-10);
-        assert_relative_eq!(Radians(-PI / 2.0).normalized().0, 3.0 * PI / 2.0, epsilon = 1e-10);
+        assert_relative_eq!(
+            Radians(-PI / 2.0).normalized().0,
+            3.0 * PI / 2.0,
+            epsilon = 1e-10
+        );
     }
 
     #[test]

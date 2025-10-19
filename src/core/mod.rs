@@ -24,4 +24,3 @@ pub use color::Color;
 pub use error::{Error, Result};
 pub use transform::Transform;
 pub use vector::Vector2D;
-

@@ -15,15 +15,15 @@ fn main() {
     let red = Color::rgb(255, 0, 0);
     let blue = Color::rgb(0, 0, 255);
     let green = Color::GREEN;
-    
+
     println!("Red:   {}", red.to_hex());
     println!("Blue:  {}", blue.to_hex());
     println!("Green: {}", green.to_hex());
-    
+
     // From hex
     let purple = Color::from_hex("#800080").unwrap();
     println!("\nPurple from hex: {}", purple.to_hex());
-    
+
     // Color interpolation
     println!("\nInterpolating from red to blue:");
     for i in 0..=5 {
@@ -32,14 +32,14 @@ fn main() {
         print!("  t={:.1}: {} ", t, color.to_hex());
         print!("RGB({:.2}, {:.2}, {:.2})\n", color.r, color.g, color.b);
     }
-    
+
     // Alpha channel
     println!("\nAlpha channel:");
     let opaque = Color::RED;
     let transparent = opaque.with_alpha(0.5);
     println!("  Opaque: alpha = {:.2}", opaque.a);
     println!("  Transparent: alpha = {:.2}", transparent.a);
-    
+
     // Color constants
     println!("\nColor constants:");
     println!("  WHITE:   {}", Color::WHITE.to_hex());
@@ -48,4 +48,3 @@ fn main() {
     println!("  MAGENTA: {}", Color::MAGENTA.to_hex());
     println!("  YELLOW:  {}", Color::YELLOW.to_hex());
 }
-

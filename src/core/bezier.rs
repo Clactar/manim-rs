@@ -222,7 +222,7 @@ impl QuadraticBezier {
             }
         }
 
-        BoundingBox::from_points(points).unwrap_or_else(|| BoundingBox::zero())
+        BoundingBox::from_points(points).unwrap_or_else(BoundingBox::zero)
     }
 
     /// Splits the curve at parameter t ∈ [0, 1].
@@ -415,7 +415,7 @@ impl CubicBezier {
             }
         }
 
-        BoundingBox::from_points(points).unwrap_or_else(|| BoundingBox::zero())
+        BoundingBox::from_points(points).unwrap_or_else(BoundingBox::zero)
     }
 
     /// Splits the curve at parameter t ∈ [0, 1].

@@ -54,12 +54,7 @@ impl Color {
     /// ```
     #[inline]
     pub fn rgb(r: u8, g: u8, b: u8) -> Self {
-        Self::rgba(
-            r as f64 / 255.0,
-            g as f64 / 255.0,
-            b as f64 / 255.0,
-            1.0,
-        )
+        Self::rgba(r as f64 / 255.0, g as f64 / 255.0, b as f64 / 255.0, 1.0)
     }
 
     /// Creates a color from a hex string (e.g., "#FF0000" or "FF0000").
@@ -74,7 +69,7 @@ impl Color {
     /// ```
     pub fn from_hex(hex: &str) -> Option<Self> {
         let hex = hex.strip_prefix('#').unwrap_or(hex);
-        
+
         if hex.len() != 6 {
             return None;
         }
@@ -220,4 +215,3 @@ mod tests {
         assert_eq!(Color::TRANSPARENT.a, 0.0);
     }
 }
-

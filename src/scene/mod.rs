@@ -24,6 +24,7 @@ impl Default for SceneConfig {
 
 /// A scene containing animated objects.
 pub struct Scene {
+    #[allow(dead_code)] // Will be used when rendering is implemented
     config: SceneConfig,
 }
 
@@ -39,4 +40,3 @@ impl Scene {
         Ok(())
     }
 }
-

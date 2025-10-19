@@ -198,12 +198,11 @@ mod tests {
         let translate = Transform::translate(5.0, 0.0);
         let rotate = Transform::rotate(std::f64::consts::PI / 2.0);
         let combined = translate * rotate;
-        
+
         let v = Vector2D::new(1.0, 0.0);
         let result = combined.apply(v);
-        
+
         assert!((result.x - 5.0).abs() < 1e-10);
         assert!((result.y - 1.0).abs() < 1e-10);
     }
 }
-

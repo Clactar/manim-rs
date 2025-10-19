@@ -369,14 +369,8 @@ impl BoundingBox {
     #[inline]
     pub fn union(&self, other: &BoundingBox) -> BoundingBox {
         BoundingBox::new(
-            Vector2D::new(
-                self.min.x.min(other.min.x),
-                self.min.y.min(other.min.y),
-            ),
-            Vector2D::new(
-                self.max.x.max(other.max.x),
-                self.max.y.max(other.max.y),
-            ),
+            Vector2D::new(self.min.x.min(other.min.x), self.min.y.min(other.min.y)),
+            Vector2D::new(self.max.x.max(other.max.x), self.max.y.max(other.max.y)),
         )
     }
 
@@ -495,11 +489,7 @@ impl Default for BoundingBox {
 
 impl fmt::Display for BoundingBox {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(
-            f,
-            "BoundingBox(min: {}, max: {})",
-            self.min, self.max
-        )
+        write!(f, "BoundingBox(min: {}, max: {})", self.min, self.max)
     }
 }
 
@@ -509,10 +499,7 @@ mod tests {
 
     #[test]
     fn test_new() {
-        let bbox = BoundingBox::new(
-            Vector2D::new(0.0, 1.0),
-            Vector2D::new(2.0, 3.0),
-        );
+        let bbox = BoundingBox::new(Vector2D::new(0.0, 1.0), Vector2D::new(2.0, 3.0));
 
         assert_eq!(bbox.min(), Vector2D::new(0.0, 1.0));
         assert_eq!(bbox.max(), Vector2D::new(2.0, 3.0));
@@ -521,19 +508,13 @@ mod tests {
     #[test]
     #[should_panic(expected = "min.x must be <= max.x")]
     fn test_new_invalid_x() {
-        BoundingBox::new(
-            Vector2D::new(2.0, 0.0),
-            Vector2D::new(0.0, 1.0),
-        );
+        BoundingBox::new(Vector2D::new(2.0, 0.0), Vector2D::new(0.0, 1.0));
     }
 
     #[test]
     #[should_panic(expected = "min.y must be <= max.y")]
     fn test_new_invalid_y() {
-        BoundingBox::new(
-            Vector2D::new(0.0, 2.0),
-            Vector2D::new(1.0, 0.0),
-        );
+        BoundingBox::new(Vector2D::new(0.0, 2.0), Vector2D::new(1.0, 0.0));
     }
 
     #[test]
@@ -580,10 +561,7 @@ mod tests {
 
     #[test]
     fn test_dimensions() {
-        let bbox = BoundingBox::new(
-            Vector2D::new(0.0, 1.0),
-            Vector2D::new(3.0, 4.0),
-        );
+        let bbox = BoundingBox::new(Vector2D::new(0.0, 1.0), Vector2D::new(3.0, 4.0));
 
         assert_eq!(bbox.width(), 3.0);
         assert_eq!(bbox.height(), 3.0);
@@ -595,10 +573,7 @@ mod tests {
 
     #[test]
     fn test_contains_point() {
-        let bbox = BoundingBox::new(
-            Vector2D::new(0.0, 0.0),
-            Vector2D::new(2.0, 2.0),
-        );
+        let bbox = BoundingBox::new(Vector2D::new(0.0, 0.0), Vector2D::new(2.0, 2.0));
 
         assert!(bbox.contains_point(Vector2D::new(0.0, 0.0))); // boundary
         assert!(bbox.contains_point(Vector2D::new(1.0, 1.0))); // interior
@@ -612,18 +587,9 @@ mod tests {
 
     #[test]
     fn test_contains_bbox() {
-        let outer = BoundingBox::new(
-            Vector2D::new(0.0, 0.0),
-            Vector2D::new(4.0, 4.0),
-        );
-        let inner = BoundingBox::new(
-            Vector2D::new(1.0, 1.0),
-            Vector2D::new(2.0, 2.0),
-        );
-        let overlapping = BoundingBox::new(
-            Vector2D::new(1.0, 1.0),
-            Vector2D::new(5.0, 5.0),
-        );
+        let outer = BoundingBox::new(Vector2D::new(0.0, 0.0), Vector2D::new(4.0, 4.0));
+        let inner = BoundingBox::new(Vector2D::new(1.0, 1.0), Vector2D::new(2.0, 2.0));
+        let overlapping = BoundingBox::new(Vector2D::new(1.0, 1.0), Vector2D::new(5.0, 5.0));
 
         assert!(outer.contains_bbox(&inner));
         assert!(!inner.contains_bbox(&outer));
@@ -632,18 +598,9 @@ mod tests {
 
     #[test]
     fn test_intersects() {
-        let bbox1 = BoundingBox::new(
-            Vector2D::new(0.0, 0.0),
-            Vector2D::new(2.0, 2.0),
-        );
-        let bbox2 = BoundingBox::new(
-            Vector2D::new(1.0, 1.0),
-            Vector2D::new(3.0, 3.0),
-        );
-        let bbox3 = BoundingBox::new(
-            Vector2D::new(3.0, 3.0),
-            Vector2D::new(4.0, 4.0),
-        );
+        let bbox1 = BoundingBox::new(Vector2D::new(0.0, 0.0), Vector2D::new(2.0, 2.0));
+        let bbox2 = BoundingBox::new(Vector2D::new(1.0, 1.0), Vector2D::new(3.0, 3.0));
+        let bbox3 = BoundingBox::new(Vector2D::new(3.0, 3.0), Vector2D::new(4.0, 4.0));
 
         assert!(bbox1.intersects(&bbox2));
         assert!(!bbox1.intersects(&bbox3));
@@ -651,37 +608,22 @@ mod tests {
 
     #[test]
     fn test_intersection() {
-        let bbox1 = BoundingBox::new(
-            Vector2D::new(0.0, 0.0),
-            Vector2D::new(2.0, 2.0),
-        );
-        let bbox2 = BoundingBox::new(
-            Vector2D::new(1.0, 1.0),
-            Vector2D::new(3.0, 3.0),
-        );
+        let bbox1 = BoundingBox::new(Vector2D::new(0.0, 0.0), Vector2D::new(2.0, 2.0));
+        let bbox2 = BoundingBox::new(Vector2D::new(1.0, 1.0), Vector2D::new(3.0, 3.0));
 
         let intersection = bbox1.intersection(&bbox2).unwrap();
         assert_eq!(intersection.min(), Vector2D::new(1.0, 1.0));
         assert_eq!(intersection.max(), Vector2D::new(2.0, 2.0));
 
-        let bbox3 = BoundingBox::new(
-            Vector2D::new(3.0, 3.0),
-            Vector2D::new(4.0, 4.0),
-        );
+        let bbox3 = BoundingBox::new(Vector2D::new(3.0, 3.0), Vector2D::new(4.0, 4.0));
 
         assert!(bbox1.intersection(&bbox3).is_none());
     }
 
     #[test]
     fn test_union() {
-        let bbox1 = BoundingBox::new(
-            Vector2D::new(0.0, 0.0),
-            Vector2D::new(2.0, 2.0),
-        );
-        let bbox2 = BoundingBox::new(
-            Vector2D::new(1.0, 1.0),
-            Vector2D::new(3.0, 3.0),
-        );
+        let bbox1 = BoundingBox::new(Vector2D::new(0.0, 0.0), Vector2D::new(2.0, 2.0));
+        let bbox2 = BoundingBox::new(Vector2D::new(1.0, 1.0), Vector2D::new(3.0, 3.0));
 
         let union = bbox1.union(&bbox2);
         assert_eq!(union.min(), Vector2D::new(0.0, 0.0));
@@ -700,10 +642,7 @@ mod tests {
 
     #[test]
     fn test_expand_by_margin() {
-        let bbox = BoundingBox::new(
-            Vector2D::new(0.0, 0.0),
-            Vector2D::new(2.0, 2.0),
-        );
+        let bbox = BoundingBox::new(Vector2D::new(0.0, 0.0), Vector2D::new(2.0, 2.0));
 
         let expanded = bbox.expand_by_margin(1.0);
         assert_eq!(expanded.min(), Vector2D::new(-1.0, -1.0));
@@ -712,10 +651,7 @@ mod tests {
 
     #[test]
     fn test_translate() {
-        let bbox = BoundingBox::new(
-            Vector2D::new(0.0, 0.0),
-            Vector2D::new(2.0, 2.0),
-        );
+        let bbox = BoundingBox::new(Vector2D::new(0.0, 0.0), Vector2D::new(2.0, 2.0));
 
         let translated = bbox.translate(Vector2D::new(1.0, -1.0));
         assert_eq!(translated.min(), Vector2D::new(1.0, -1.0));
@@ -724,10 +660,7 @@ mod tests {
 
     #[test]
     fn test_scale() {
-        let bbox = BoundingBox::new(
-            Vector2D::new(0.0, 0.0),
-            Vector2D::new(2.0, 2.0),
-        );
+        let bbox = BoundingBox::new(Vector2D::new(0.0, 0.0), Vector2D::new(2.0, 2.0));
 
         let scaled = bbox.scale(2.0);
         assert_eq!(scaled.center(), Vector2D::new(1.0, 1.0)); // center unchanged
@@ -736,10 +669,7 @@ mod tests {
 
     #[test]
     fn test_display() {
-        let bbox = BoundingBox::new(
-            Vector2D::new(0.0, 0.0),
-            Vector2D::new(2.0, 2.0),
-        );
+        let bbox = BoundingBox::new(Vector2D::new(0.0, 0.0), Vector2D::new(2.0, 2.0));
 
         let display = format!("{}", bbox);
         assert!(display.contains("BoundingBox"));

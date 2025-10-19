@@ -1,4 +1,4 @@
-use criterion::{black_box, criterion_group, criterion_main, Criterion};
+use criterion::{Criterion, black_box, criterion_group, criterion_main};
 use manim_rs::core::Vector2D;
 
 fn benchmark_vector_operations(c: &mut Criterion) {
@@ -38,4 +38,3 @@ fn benchmark_vector_operations(c: &mut Criterion) {
 
 criterion_group!(benches, benchmark_vector_operations);
 criterion_main!(benches);
-

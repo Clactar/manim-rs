@@ -5,23 +5,22 @@
 //!
 //! ## Quick Start
 //!
-//! ```rust,no_run
-//! use manim_rs::prelude::*;
+//! ```rust
+//! use manim_rs::core::{Vector2D, Color, Transform};
 //!
-//! fn main() -> Result<()> {
-//!     let mut scene = Scene::new(SceneConfig::default());
-//!     
-//!     let circle = Circle::builder()
-//!         .center(Vector2D::ZERO)
-//!         .radius(2.0)
-//!         .build();
-//!     
-//!     scene.add(circle);
-//!     scene.render("output.svg")?;
-//!     
-//!     Ok(())
-//! }
+//! // Create vectors and colors
+//! let position = Vector2D::new(1.0, 2.0);
+//! let color = Color::rgb(255, 0, 0);
+//! 
+//! // Use transformations
+//! let transform = Transform::translate(5.0, 3.0);
+//! let new_pos = transform.apply(position);
+//! 
+//! assert_eq!(new_pos.x, 6.0);
+//! assert_eq!(new_pos.y, 5.0);
 //! ```
+//!
+//! Note: Full scene rendering is coming in Phase 2. Currently provides core math types.
 //!
 //! ## Architecture
 //!
@@ -41,9 +40,9 @@ pub mod utils;
 
 /// Commonly used types and traits
 pub mod prelude {
-    pub use crate::core::{Color, Vector2D};
+    pub use crate::core::{Color, Transform, Vector2D};
     pub use crate::scene::{Scene, SceneConfig};
-    
+
     /// Result type for manim-rs operations
     pub type Result<T> = std::result::Result<T, crate::core::Error>;
 }

@@ -26,4 +26,3 @@ pub enum Error {
 
 /// Result type for manim-rs operations.
 pub type Result<T> = std::result::Result<T, Error>;
-

@@ -6,4 +6,3 @@
 //! - Mathematical equations
 
 // TODO: Implement mobject system
-
