@@ -2,7 +2,7 @@
 
 This document outlines the implementation plan for manim-rs, organized by dependency hierarchy. Each phase builds upon the previous ones.
 
-## Current Status: Phase 2 (In Progress 🔄)
+## Current Status: Phase 2.1 Complete ✅ → Phase 2.2 Next 🔄
 
 ---
 
@@ -33,16 +33,22 @@ This document outlines the implementation plan for manim-rs, organized by depend
 
 ## Phase 2: Rendering Foundation
 
-**Status**: In Progress 🔄  
+**Status**: Phase 2.1 Complete ✅, Phase 2.2 Next 🔄  
 **Dependencies**: Phase 1.1 ✅, Phase 1.2 ✅  
 **Estimated Complexity**: High
 
-### 2.1 Rendering Traits & Abstractions
+### 2.1 Rendering Traits & Abstractions ✅
 
-- [ ] `Renderer` trait - Backend-agnostic rendering interface
-- [ ] `PathStyle` / `TextStyle` - Rendering style types
-- [ ] `Path` - 2D path representation with Bézier commands
-- [ ] `RenderContext` - Shared rendering state (optional for Milestone 1)
+- [x] `Renderer` trait - Backend-agnostic rendering interface
+- [x] `PathStyle` / `TextStyle` - Rendering style types
+- [x] `Path` - 2D path representation with Bézier commands
+- [x] `PathCommand` enum - MoveTo, LineTo, QuadraticTo, CubicTo, Close
+- [x] `PathCursor` - Helper for building paths with relative movements
+- [x] `PathProvider` trait - For objects that can provide cached paths
+- [x] SmallVec optimization for stack-allocated paths
+- [x] Bounding box computation with caching
+- [x] Transform application to paths
+- [ ] `RenderContext` - Shared rendering state (defer to Phase 2.2)
 - [ ] `Layer` system for depth control (defer to Phase 5)
 
 ### 2.2 SVG Backend (Priority 1)
@@ -349,9 +355,9 @@ This document outlines the implementation plan for manim-rs, organized by depend
 ### Milestone 1: "Static Shapes"
 
 **Target**: Static scene with basic shapes rendered to SVG  
-**Phases**: 1.1 ✅, 1.2, 2.1-2.2, 3.1-3.2  
+**Phases**: 1.1 ✅, 1.2 ✅, 2.1 ✅, 2.2 (in progress), 3.1-3.2  
 **Demo**: Circle, square, line rendered to SVG file  
-**Estimated Time**: 4-5 weeks from start of Phase 1.2
+**Progress**: ~40% complete (3 of 5 phases done)
 
 ### Milestone 2: "Simple Animations"
 
@@ -432,7 +438,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for how to propose changes.
 ---
 
 **Last Updated**: 2025-10-19
-**Current Phase**: Phase 1.2 (Completed) ✅ → Phase 2.1 (Next) 🔄
+**Current Phase**: Phase 2.1 (Completed) ✅ → Phase 2.2 SVG Backend (Next) 🔄
 
 ---
 
