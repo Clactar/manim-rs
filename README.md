@@ -144,16 +144,31 @@ See [benches/](benches/) for detailed performance benchmarks.
 
 ## 🗺️ Roadmap
 
+See [ROADMAP.md](ROADMAP.md) for the complete development plan and [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) for detailed next steps.
+
+**Current Status**: Phase 1 Complete ✅ → Phase 2 In Progress 🔄
+
+### Completed
 - [x] Project setup and core architecture
-- [ ] Basic geometric primitives (Circle, Rectangle, Line)
-- [ ] Core animation system with easing functions
-- [ ] SVG rendering backend
-- [ ] Text rendering support
-- [ ] Mathematical equation rendering (LaTeX integration)
-- [ ] Video export (MP4, WebM)
-- [ ] GPU-accelerated rendering
-- [ ] 3D support
-- [ ] Interactive previews
+- [x] Core types: `Vector2D`, `Color`, `Transform`
+- [x] Comprehensive documentation and Cursor rules
+- [x] Testing infrastructure with 22 unit tests
+- [x] Benchmarking suite
+
+### Next Milestones
+- [ ] **Milestone 1** (3-4 weeks): Static shapes rendered to SVG
+  - Rendering traits and SVG backend
+  - Basic geometric primitives (Circle, Rectangle, Line)
+- [ ] **Milestone 2** (2-3 weeks): Simple animations
+  - Animation system with easing functions
+  - FadeIn, Transform, Move animations
+- [ ] **Milestone 3** (3-4 weeks): Text and LaTeX
+  - Text rendering with fonts
+  - Mathematical equation rendering
+- [ ] **Milestone 4** (2 weeks): Video export
+  - Frame sequence generation
+  - FFmpeg integration for MP4/WebM
+- [ ] **Future**: GPU rendering, 3D support, interactive previews
 
 ## 📄 License
 
